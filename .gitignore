@@ -1,0 +1,27 @@
+# Compiled source #
+###################
+*.pyc
+__pycache__/
+.idea/
+.cache/
+venv/
+node_modules/
+migrations/
+coverage/
+htmlcov/
+
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.coverage
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store/
