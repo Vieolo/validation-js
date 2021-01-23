@@ -1,5 +1,5 @@
 {
-  "name": "validation",
+  "name": "@vieolo/validation",
   "version": "0.1.0",
   "description": "Validation functions for JS",
   "main": "dist/index.js",
