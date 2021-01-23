@@ -46,7 +46,7 @@ export function stringValidation(
         let successResponse = { isValid: true, value: options.value, message: '' };
         if (!options.regexTest || options.regexTest == 'general') return successResponse;
         else {
-            const emailRegex = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
+            const emailRegex: RegExp = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
             return emailRegex.test(options.value) ? successResponse : { isValid: false, value: '', message: 'Please enter a valid email!' };
         }
 
@@ -209,4 +209,31 @@ export function selectValidation(
     if ((options.forbidden || [] as string[]).includes(options.value)) return { isValid: false, value: '', message: options.forbiddenMessage || 'The selected option is not allowed' };
 
     return { isValid: true, value: options.value, message: '' };
+}
+
+
+/**
+ * Validates the various aspects of a file (JS instance of File class)
+ */
+export function fileValidation(
+    options: {
+        /** The file object */
+        file: File,
+        /** The maximum allowed size */
+        maxSize?: number,
+    }): ValidationResponse<boolean> {
+
+    let fileNameSplited: string[] = options.file.name.split('.');
+    let invalidNameMessage: string = "The name of the file is not valid";
+
+    if (fileNameSplited.length != 2) return { isValid: false, message: invalidNameMessage, value: false };
+
+    const fileNameRegex: RegExp = /^[a-zA-z 0-9\-\_\(\)]+$/gm;
+
+    if (!fileNameRegex.test(fileNameSplited[0])) return { isValid: false, message: invalidNameMessage, value: false };
+
+    if (options.maxSize && options.maxSize > options.file.size) return { isValid: false, message: "The file is too large", value: false };
+
+    return { isValid: true, message: "", value: true }
+
 }
