@@ -1,6 +1,6 @@
 import {
     fileValidation
-} from './index'
+} from '../src/index'
 
 
 describe("Validation", () => {
@@ -21,6 +21,7 @@ describe("Validation", () => {
         expect(fileValidation({file: new File([""], "!ssd.pdf")}).isValid).toBe(false)
         expect(fileValidation({file: new File([""], "  !ssd  .pdf")}).isValid).toBe(false)
         expect(fileValidation({file: new File([""], "__!_ssd1A.pdf")}).isValid).toBe(false)
+        expect(fileValidation({file: new File([""], "__!_ssd.1A.pdf")}).isValid).toBe(false)
 
     })
 

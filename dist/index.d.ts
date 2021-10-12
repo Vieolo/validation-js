@@ -88,6 +88,7 @@ export declare function selectValidation(options: {
     /** The message to be return in case the value is among one of the forbidden values */
     forbiddenMessage?: string;
 }): ValidationResponse<string>;
+export declare function fileNameValidation(fileName: string): boolean;
 /**
  * Validates the various aspects of a file (JS instance of File class)
  */

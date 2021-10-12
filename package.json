@@ -1,6 +1,6 @@
 {
   "name": "@vieolo/validation",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Validation functions for JS",
   "main": "dist/index.js",
   "scripts": {
