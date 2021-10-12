@@ -5,7 +5,7 @@ A package handling the validation of form values in JS
 to install, add the following to the `dependency` key of the `package.json` file of the project.
 
 ```json
-"@vieolo/validation-js": "github:Vieolo/validation-js#0.1.1",
+"@vieolo/validation-js": "github:Vieolo/validation-js#0.1.2",
 ```
 
 ## Version Bump
