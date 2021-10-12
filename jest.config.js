@@ -7,6 +7,7 @@ module.exports = {
 	testPathIgnorePatterns: [
 		"/node_modules"
 	],
+	coverageReporters: ["text", 'html'],
 	verbose: true,
 	/*coverageThreshold: {
 		global: {
