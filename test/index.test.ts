@@ -1,6 +1,6 @@
 import {
     fileValidation
-} from './index'
+} from '../src/index'
 
 
 describe("Validation", () => {
