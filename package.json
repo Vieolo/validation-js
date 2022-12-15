@@ -1,10 +1,11 @@
 {
   "name": "@vieolo/validation",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Validation functions for JS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
