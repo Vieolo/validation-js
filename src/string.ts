@@ -8,6 +8,8 @@ export function stringValidation(
     options: {
         /** The value to be validated */
         value: string,
+        /** The minimum allowed length of the string, inclusive */
+        minLength?: number,
         /** The maximum allowed length of the string, inclusive */
         maxLength: number,
         /** Whether the value can be empty or not */
@@ -16,19 +18,58 @@ export function stringValidation(
         emptyMessage?: string,
         /** The message to be returned if the value is too long */
         tooLongMessage?: string,
+        /** The message to be returned if the value is too short */
+        tooShortMessage?: string,
         /** Which regex the string should be checked against */
-        regexTest?: 'general' | 'email'
+        regexTest?: 'email' | 'username',
+        /** Any custom regex that the string should be tested against. It has a higher priority than the standard regex */
+        customRegexTest?: RegExp,
+        /** The message to be returned if the value does not match the selected regex */
+        regexFailMessage?: string,
     }
-): ValidationResponse<string> {
+): ValidationResponse<string> {    
+    // Empty
+    if (!options.value.trim()) return { 
+        isValid: options.optional || false, 
+        value: "", 
+        message: options.optional ? "" : options.emptyMessage || 'This value cannot be empty' 
+    };
+    
+    // Too Long
+    else if (options.value.length > options.maxLength) return { 
+        isValid: false, 
+        value: '', 
+        message: options.tooLongMessage || `The given value cannot be longer than ${options.maxLength}` 
+    };
+    
+    // Too short
+    else if (options.minLength && options.value.length < options.minLength) return { 
+        isValid: false, 
+        value: '', 
+        message: options.tooShortMessage || `The given value cannot be shorter than ${options.minLength}` 
+    };
 
-    if (!options.value.trim()) return { isValid: options.optional || false, value: "", message: options.emptyMessage || 'This value cannot be empty' };
-    else if (options.value.length > options.maxLength) return { isValid: false, value: '', message: options.tooLongMessage || `The given value cannot be longer than ${options.maxLength}` };
+    // The length is right, is now proceeding to the content
     else {
         let successResponse = { isValid: true, value: options.value, message: '' };
-        if (!options.regexTest || options.regexTest == 'general') return successResponse;
-        else {
-            const emailRegex: RegExp = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gm;
-            return emailRegex.test(options.value) ? successResponse : { isValid: false, value: '', message: 'Please enter a valid email!' };
+        
+        // No regex is needed to be checked, success is returend
+        if (!options.regexTest && !options.customRegexTest) return successResponse;
+        else if (options.customRegexTest) {
+            return options.customRegexTest.test(options.value) 
+                ? successResponse 
+                : { isValid: false, value: '', message: options.regexFailMessage || 'The entered value is not acceptable!' };
+        }
+        else if (options.regexTest === 'email') {
+            const emailRegex: RegExp = /[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/gm;            
+            return emailRegex.test(options.value) 
+                ? successResponse 
+                : { isValid: false, value: '', message: options.regexFailMessage || 'Please enter a valid email!' };
+        } else { // Username
+            const usernameRegex: RegExp = /^[a-zA-Z]([a-z]|[A-Z]|_|-|\.|\+|\d){2,19}$/;
+            return usernameRegex.test(options.value) 
+                ? successResponse 
+                : { isValid: false, value: '', message: options.regexFailMessage || 'Please enter a username!' };
         }
 
     }

@@ -3,7 +3,7 @@ import {
 } from '../src/index'
 
 
-describe("Validation", () => {
+describe("File Validation", () => {
     global.File = class MockFile {
         name: string;
         constructor(parts: (string | Blob | ArrayBuffer | ArrayBufferView)[], filename: string, properties ? : FilePropertyBag) {
