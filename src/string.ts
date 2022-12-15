@@ -1,5 +1,5 @@
 // Installed Packages
-import { emailRegexStandAlone } from "../node_modules/@vieolo/regex-library/dist/index";
+import { emailRegexStandAlone } from "@vieolo/regex-library";
 
 // Types
 import { ValidationResponse } from "./types";
