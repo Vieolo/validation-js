@@ -1,3 +1,6 @@
+// Installed Packages
+import { emailRegexStandAlone } from "../node_modules/@vieolo/regex-library/dist/index";
+
 // Types
 import { ValidationResponse } from "./types";
 
@@ -60,9 +63,8 @@ export function stringValidation(
                 ? successResponse 
                 : { isValid: false, value: '', message: options.regexFailMessage || 'The entered value is not acceptable!' };
         }
-        else if (options.regexTest === 'email') {
-            const emailRegex: RegExp = /[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/gm;            
-            return emailRegex.test(options.value) 
+        else if (options.regexTest === 'email') {            
+            return emailRegexStandAlone.test(options.value) 
                 ? successResponse 
                 : { isValid: false, value: '', message: options.regexFailMessage || 'Please enter a valid email!' };
         } else { // Username
