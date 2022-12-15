@@ -8,7 +8,14 @@ module.exports = {
 		"/node_modules"
 	],
 	coverageReporters: ["text", 'html'],
+	transformIgnorePatterns: [
+        '<rootDir>/node_modules/(?!(date_utility|country_data|react_validation|@vieolo))'
+    ],
 	verbose: true,
+	transform: {
+		"^.+\\.js?$": "babel-jest", // Adding this line solved the issue
+		"^.+\\.ts?$": "ts-jest"
+	},
 	/*coverageThreshold: {
 		global: {
 			branches: 100,

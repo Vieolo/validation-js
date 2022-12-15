@@ -66,7 +66,7 @@ export function stringValidation(
                 ? successResponse 
                 : { isValid: false, value: '', message: options.regexFailMessage || 'Please enter a valid email!' };
         } else { // Username
-            const usernameRegex: RegExp = /^[a-zA-Z]([a-z]|[A-Z]|_|-|\.|\+|\d){2,19}$/;
+            const usernameRegex: RegExp = /^[a-zA-Z]([a-z]|[A-Z]|_|-|\.|\+|\d)+$/;
             return usernameRegex.test(options.value) 
                 ? successResponse 
                 : { isValid: false, value: '', message: options.regexFailMessage || 'Please enter a username!' };

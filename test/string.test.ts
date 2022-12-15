@@ -2,6 +2,9 @@ import {
     stringValidation
 } from '../src/index'
 
+// Installed Packages
+import { time24Hours } from '@vieolo/regex-library'
+
 
 describe("String Validation", () => {
 
@@ -54,6 +57,7 @@ describe("String Validation", () => {
 
     })
 
+    
     it("validates an email correctly", () => {
         expect(stringValidation({
             maxLength: 100,
@@ -146,4 +150,75 @@ describe("String Validation", () => {
         }).isValid).toBe(true)
     })
 
+
+    it("validates an username correctly", () => {
+        expect(stringValidation({
+            maxLength: 40,
+            value: "example",
+            regexTest: 'username'
+        }).isValid).toBe(true)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "exampleexampleexampleexampleexampleexaml",
+            regexTest: 'username'
+        }).isValid).toBe(true)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "exampleexampleexampleexampleexampleexamle",
+            regexTest: 'username'
+        }).isValid).toBe(false)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "example_-.+1234",
+            regexTest: 'username'
+        }).isValid).toBe(true)
+
+        expect(stringValidation({
+            maxLength: 40,
+            value: "example_-.+1234@",
+            regexTest: 'username'
+        }).isValid).toBe(false)
+
+        expect(stringValidation({
+            maxLength: 40,
+            value: "example example",
+            regexTest: 'username'
+        }).isValid).toBe(false)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "example=example",
+            regexTest: 'username'
+        }).isValid).toBe(false)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "exampleexample;",
+            regexTest: 'username'
+        }).isValid).toBe(false)
+    })
+
+
+    it("validates against a custom regex successfully", () => {
+        expect(stringValidation({
+            maxLength: 40,
+            value: "12:35",
+            customRegexTest: time24Hours
+        }).isValid).toBe(true)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "24:35",
+            customRegexTest: time24Hours
+        }).isValid).toBe(false)
+        
+        expect(stringValidation({
+            maxLength: 40,
+            value: "22 35",
+            customRegexTest: time24Hours
+        }).isValid).toBe(false)
+    })
 })
