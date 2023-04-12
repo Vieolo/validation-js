@@ -27,7 +27,7 @@ export function stringValidation(options) {
         };
     // The length is right, is now proceeding to the content
     else {
-        let successResponse = { isValid: true, value: options.value, message: '' };
+        let successResponse = { isValid: true, value: options.doNotTrim ? options.value : options.value.trim(), message: '' };
         // No regex is needed to be checked, success is returend
         if (!options.regexTest && !options.customRegexTest)
             return successResponse;

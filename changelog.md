@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.0 (2023-04-12)
+
+#### Breaking Changes
+- The value of string validation is not trimmed by default
+
 ## 0.2.1 (2022-12-15)
 - Fixed the imports
 

@@ -23,4 +23,6 @@ export declare function stringValidation(options: {
     customRegexTest?: RegExp;
     /** The message to be returned if the value does not match the selected regex */
     regexFailMessage?: string;
+    /** The final string won't be trimmed from the starting and ending white spaces */
+    doNotTrim?: boolean;
 }): ValidationResponse<string>;
