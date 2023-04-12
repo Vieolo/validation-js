@@ -29,6 +29,8 @@ export function stringValidation(
         customRegexTest?: RegExp,
         /** The message to be returned if the value does not match the selected regex */
         regexFailMessage?: string,
+        /** The final string won't be trimmed from the starting and ending white spaces */
+        doNotTrim?: boolean
     }
 ): ValidationResponse<string> {    
     // Empty
@@ -54,7 +56,7 @@ export function stringValidation(
 
     // The length is right, is now proceeding to the content
     else {
-        let successResponse = { isValid: true, value: options.value, message: '' };
+        let successResponse = { isValid: true, value: options.doNotTrim ? options.value : options.value.trim(), message: '' };
         
         // No regex is needed to be checked, success is returend
         if (!options.regexTest && !options.customRegexTest) return successResponse;
