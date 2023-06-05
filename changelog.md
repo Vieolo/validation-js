@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.4.0 (2023-06-05)
+- Chnaged the license to MIT-0
+
 ## 0.3.0 (2023-04-12)
 
 #### Breaking Changes
